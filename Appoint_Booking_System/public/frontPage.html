@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+</head>
+<body>
+    <center><h2>Appointment Booking System</h2> 
+    <!-- it is used if we dont want the script file to write and send the data manually in json format.... we can simply add the url_encoded in the server file
+    
+   <form method="post" action="/submit"> -->
+    
+    <!--
+    using the script file to send data to server-->
+
+    <form id="formSumbitted">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="phone">Phone Number:</label><br>
+        <input type="tel" id="phone" name="phone"><br>
+        <lable for="email">Email:</lable><br>
+        <input type="email" id="email" name="email"><br><br>
+        <input type="submit" value="Add">
+    </form>
+   </center>
+   <h2>Appointment List:</h2>
+   <ul id="listOrder"></ul>
+</body>
+<script src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</html>
