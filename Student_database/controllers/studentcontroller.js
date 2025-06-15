@@ -1,5 +1,7 @@
 const db=require('../dataBase/db');
 const Student=require('../models/students');
+const IdentityCard=require('../models/IdentityCard');
+const IDCard = require('../models/IdentityCard');
 const adduser=async(req,res)=>{
 
     try {
@@ -30,6 +32,21 @@ const adduser=async(req,res)=>{
     //     console.log('Query executed successfuly');
     //     res.status(200).send(`New user ${name} has added to database`);
     // })
+}
+
+
+const addUserWithTheIDCardNumber=async(req,res)=>{
+    try {
+        const student=await Student.create(req.body.student);
+        const IdentityCard=await IDCard.create({
+            ...req.body.IDCard,
+            StudentId:student.id
+        })
+
+        res.status(201).json({student,IdentityCard});
+    } catch (error) {
+        res.status(500).json({error:error.message});
+    }
 }
 
 const getuser=async(req,res)=>{
@@ -171,5 +188,6 @@ module.exports={
     adduser,
     getuser,
     updateuser,
-    deleteuser
+    deleteuser,
+    addUserWithTheIDCardNumber
 };
