@@ -12,6 +12,12 @@ app.use(express.json());
 const studentrouter=require('./routers/studentsrouter');
 app.use('/students',studentrouter);
 
+const deptrouter=require('./routers/deptrouter');
+app.use('/dept',deptrouter);
+
+const courserouter=require('./routers/coursesrouter');
+app.use('/courses',courserouter);
+
 app.use('/home',(req,res)=>{
     res.send('student details');
 })
