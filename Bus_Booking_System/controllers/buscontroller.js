@@ -1,6 +1,8 @@
 const {Op}=require('sequelize');
 const db=require('../Create_DataBase_Querys/dataBase');
 const BusDB=require('../models/bus');
+const Users=require('../models/users');
+const Booking=require('../models/booking')
 
 const addbus=async (req,res)=>{
     try {
@@ -74,7 +76,28 @@ const retrivebus=async (req,res)=>{
     // })
 }
 
+const bookingwithbus=async(req,res)=>{
+    try {
+        const id=parseInt(req.params.id);
+        const bookingBus=await Booking.findAll({
+            where:{
+                busId:id
+            },include:{
+                model:Users,
+                attributes:['name','email']
+            },
+            attributes:['id','seatNumber']
+        });
+        
+        res.status(200).json(bookingBus);
+
+    } catch (error) {
+        res.status(500).json({error:error.message});
+    }
+}
+
 module.exports={
     addbus,
-    retrivebus
+    retrivebus,
+    bookingwithbus
 };

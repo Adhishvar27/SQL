@@ -1,5 +1,7 @@
 const db=require('../Create_DataBase_Querys/dataBase');
 const UserDB=require('../models/users');
+const Booking=require('../models/booking');
+const Buses = require('../models/bus');
 
 const adduser=async (req,res)=>{
     try {
@@ -48,7 +50,26 @@ const selectuser=async(req,res)=>{
     // });
 }
 
+const userwithbooking=async(req,res)=>{
+    try {
+        const id=parseInt(req.params.id);
+        const bookingvalues=await Booking.findAll({
+            where:{
+                userId:id
+            },include:{
+                model:Buses,
+                attributes:['busNumber']
+            },
+            attributes:['id','seatNumber']
+        });
+        res.status(200).json(bookingvalues);
+    } catch (error) {
+        res.status(500).json({error:error.message});
+    }
+}
+
 module.exports={
     adduser,
-    selectuser
+    selectuser,
+    userwithbooking
 };
