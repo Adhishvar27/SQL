@@ -1,16 +1,16 @@
 const {Sequelize,DataTypes}=require('sequelize');
 const db=require('../dataBase/db');
 
-const department=db.define('department',{
+const courses=db.define('courses',{
     id:{
         primaryKey:true,
-        allowNull:false,
-        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        type:DataTypes.INTEGER
     },
-    dept:{
+    name:{
         type:DataTypes.STRING,
         allowNull:false
     }
-})
+});
 
-module.exports=department;
+module.exports=courses

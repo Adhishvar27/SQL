@@ -4,7 +4,8 @@
 const Students=require('./students');
 const IdentityCard=require('./IdentityCard');
 const department=require('./department');
-const students = require('./students');
+const courses=require('./courses');
+const studentcourses=require('./studentcourses');
 
 //one to one relationship
 
@@ -13,10 +14,17 @@ IdentityCard.belongsTo(Students);
 
 //one to many relationship
 
-department.hasMany(students);
-students.belongsTo(department);
+department.hasMany(Students);
+Students.belongsTo(department);
+
+//many to many ralationship
+
+Students.belongsToMany(courses,{through:studentcourses});
+courses.belongsToMany(Students,{through:studentcourses});
 
 module.exports={
     Students,
-    IdentityCard
+    IdentityCard,
+    courses,
+    studentcourses
 };
