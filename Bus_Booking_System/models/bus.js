@@ -7,7 +7,6 @@ const buses=db.define('buses',{
         type:DataTypes.INTEGER,
         autoIncrement:true,
         primaryKey:true, 
-        allowNull:false
     },
     busNumber:{
         type:DataTypes.STRING,

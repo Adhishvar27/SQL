@@ -6,7 +6,7 @@ const booking=db.define('booking',{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
-        allowNull:false
+        autoIncrement:true
     },
     seatNumber:{
         type:DataTypes.STRING,

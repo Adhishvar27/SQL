@@ -16,6 +16,7 @@ const db=require('../Create_DataBase_Querys/dataBase');
         type:DataTypes.STRING,
         allowNull:false
     }
+    
 });
 console.log('User table is created successfully')
 
