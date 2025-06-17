@@ -1,7 +1,28 @@
 const db=require('../dataBase/db');
 const Student=require('../models/students');
-const IdentityCard=require('../models/IdentityCard');
 const IDCard = require('../models/IdentityCard');
+const department=require('../models/department');
+
+const adduserwiththedept=async(req,res)=>{
+    try {
+        const {student,departmentID}=req.body;
+        if(!student || !departmentID){
+            res.status(500).json("Enter the student and depatment ID they want to enroll");
+        }
+        const dept=await department.findByPk(departmentID);
+        if(!dept){
+            res.status(404).json('ID not found inthe department table');
+        }
+        const insertwithdept=await Student.create({
+            ...student,
+            departmentId:dept.id
+        });
+        res.status(201).json('User has been added with department ID');
+    } catch (error) {
+        res.status(500).json({error:error.message});
+    }
+}
+
 const adduser=async(req,res)=>{
 
     try {
@@ -36,6 +57,17 @@ const adduser=async(req,res)=>{
 
 
 const addUserWithTheIDCardNumber=async(req,res)=>{
+//this is how to send the data in postman
+//     {
+//     "student":{
+//         "name":"Adhi",
+//         "email":"adhi@gmail.com",
+//         "age":23
+//     },
+//     "IDCard":{
+//         "cardNumber":123455566
+//     }
+// }
     try {
         const student=await Student.create(req.body.student);
         const IdentityCard=await IDCard.create({
@@ -48,6 +80,7 @@ const addUserWithTheIDCardNumber=async(req,res)=>{
         res.status(500).json({error:error.message});
     }
 }
+
 
 const getuser=async(req,res)=>{
 
@@ -189,5 +222,6 @@ module.exports={
     getuser,
     updateuser,
     deleteuser,
-    addUserWithTheIDCardNumber
+    addUserWithTheIDCardNumber,
+    adduserwiththedept
 };
